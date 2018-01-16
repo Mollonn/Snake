@@ -7,22 +7,23 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 
-public class GameField extends JPanel implements ActionListener{
-    private final int SIZE = 320;
-    private final int DOT_SIZE = 16;
-    private final int ALL_DOTS = 400;
-    private Image dot;
-    private Image apple;
-    private int appleX;
-    private int appleY;
-    private int[] x = new int[ALL_DOTS];
-    private int[] y = new int[ALL_DOTS];
-    private int dots;
-    private Timer timer;
+public class GameField extends JPanel implements ActionListener
+{
     private boolean left = false;
     private boolean right = true;
     private boolean up = false;
     private boolean down = false;
+    private Image dot;
+    private Image apple;
+    private final int SIZE = 320;
+    private final int DOT_SIZE = 16;
+    private final int ALL_DOTS = 400;
+    private int appleX;
+    private int appleY;
+    private int[] x = new int[ALL_DOTS];
+    private int[] y = new int[ALL_DOTS];
+    private int snake_segment;
+    private Timer Time;
     private boolean inGame = true;
 
 
@@ -38,14 +39,14 @@ public class GameField extends JPanel implements ActionListener{
 
     public void initGame()
     {
-        dots = 3;
-        for (int i = 0; i < dots; i++)
+        snake_segment = 3;
+        for (int i = 0; i < snake_segment; i++)
         {
-            x[i] = 48 - i*DOT_SIZE;
-            y[i] = 48;
+            x[i] = DOT_SIZE*3;
+            y[i] = DOT_SIZE*3;
         }
-        timer = new Timer(40,this);
-        timer.start();
+        Time = new Timer(80,this);
+        Time.start();
         createApple();
     }
 
@@ -70,7 +71,7 @@ public class GameField extends JPanel implements ActionListener{
         if(inGame)
         {
             g.drawImage(apple,appleX,appleY,this);
-            for (int i = 0; i < dots; i++)
+            for (int i = 0; i < snake_segment; i++)
             {
                 g.drawImage(dot,x[i],y[i],this);
             }
@@ -78,13 +79,13 @@ public class GameField extends JPanel implements ActionListener{
             {
             String str = "Game Over";
             g.setColor(Color.white);
-            g.drawString(str,125,SIZE/2);
+            g.drawString(str,320/2-15,SIZE/2);
         }
     }
 
     public void move()
     {
-        for (int i = dots; i > 0; i--)
+        for (int i = snake_segment; i > 0; i--)
         {
             x[i] = x[i-1];
             y[i] = y[i-1];
@@ -109,14 +110,14 @@ public class GameField extends JPanel implements ActionListener{
     {
         if(x[0] == appleX && y[0] == appleY)
         {
-            dots++;
+            snake_segment++;
             createApple();
         }
     }
 
     public void checkCollisions()
     {
-        for (int i = dots; i >0 ; i--)
+        for (int i = snake_segment; i >0 ; i--)
         {
             if(i>4 && x[0] == x[i] && y[0] == y[i])
             {
