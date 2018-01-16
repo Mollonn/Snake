@@ -45,7 +45,7 @@ public class GameField extends JPanel implements ActionListener
             x[i] = DOT_SIZE*3;
             y[i] = DOT_SIZE*3;
         }
-        Time = new Timer(80,this);
+        Time = new Timer(150,this);
         Time.start();
         createApple();
     }
