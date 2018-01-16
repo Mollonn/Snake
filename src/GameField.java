@@ -29,7 +29,7 @@ public class GameField extends JPanel implements ActionListener
 
     public GameField()
     {
-        setBackground(Color.black);
+        setBackground(Color.DARK_GRAY);
         loadImages();
         initGame();
         addKeyListener(new FieldKeyListener());
@@ -39,13 +39,13 @@ public class GameField extends JPanel implements ActionListener
 
     public void initGame()
     {
-        snake_segment = 3;
+        snake_segment = 4;
         for (int i = 0; i < snake_segment; i++)
         {
             x[i] = DOT_SIZE*3;
             y[i] = DOT_SIZE*3;
         }
-        Time = new Timer(150,this);
+        Time = new Timer(80,this);
         Time.start();
         createApple();
     }
@@ -58,9 +58,9 @@ public class GameField extends JPanel implements ActionListener
 
     public void loadImages()
     {
-        ImageIcon iia = new ImageIcon("apple.png");
+        ImageIcon iia = new ImageIcon("src/res/apple.png" );
         apple = iia.getImage();
-        ImageIcon iid = new ImageIcon("dot.png");
+        ImageIcon iid = new ImageIcon("src/res/dot.png");
         dot = iid.getImage();
     }
 
@@ -78,7 +78,7 @@ public class GameField extends JPanel implements ActionListener
         } else
             {
             String str = "Game Over";
-            g.setColor(Color.white);
+            g.setColor(Color.WHITE);
             g.drawString(str,320/2-15,SIZE/2);
         }
     }
